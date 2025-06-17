@@ -177,7 +177,7 @@ export const DNSResults = ({ results }: DNSResultsProps) => {
                   </div>
                 ))}
               </CardContent>
-            </CollipsibleContent>
+            </CollapsibleContent>
           </Card>
         </Collapsible>
 
@@ -242,7 +242,7 @@ export const DNSResults = ({ results }: DNSResultsProps) => {
         <Collapsible>
           <Card className="shadow-md">
             <CollapsibleTrigger className="w-full">
-              <CardHeader className="hover: bg-gray-50 transition-colors">
+              <CardHeader className="hover:bg-gray-50 transition-colors">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <Link className="h-5 w-5 text-blue-600" />
