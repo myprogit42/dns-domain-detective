@@ -1,4 +1,3 @@
-
 import type { DNSReport, DNSRecord, MXRecord, SOARecord, NameserverCheck, DNSCheck } from "@/types/dns";
 
 export class DNSChecker {
@@ -178,9 +177,25 @@ export class DNSChecker {
         for (const record of response.Answer) {
           if (record.type === 15) { // MX record
             const parts = record.data.split(' ');
+            const exchange = parts[1]?.replace(/\.$/, '') || '';
+            
+            // Resolve IP addresses for the MX record
+            let ipAddresses: string[] = [];
+            try {
+              const aResponse = await this.queryDNS(exchange, 'A');
+              if (aResponse.Answer) {
+                ipAddresses = aResponse.Answer
+                  .filter((aRecord: any) => aRecord.type === 1)
+                  .map((aRecord: any) => aRecord.data);
+              }
+            } catch (error) {
+              console.log(`Failed to resolve IP for MX record ${exchange}:`, error);
+            }
+            
             records.push({
               priority: parseInt(parts[0]) || 0,
-              exchange: parts[1]?.replace(/\.$/, '') || ''
+              exchange,
+              ipAddresses
             });
           }
         }

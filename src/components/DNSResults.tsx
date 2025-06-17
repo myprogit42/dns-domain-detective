@@ -177,7 +177,7 @@ export const DNSResults = ({ results }: DNSResultsProps) => {
                   </div>
                 ))}
               </CardContent>
-            </CollapsibleContent>
+            </CollipsibleContent>
           </Card>
         </Collapsible>
 
@@ -206,11 +206,25 @@ export const DNSResults = ({ results }: DNSResultsProps) => {
             </CollapsibleTrigger>
             <CollapsibleContent>
               <CardContent className="pt-0">
-                <div className="space-y-2">
+                <div className="space-y-3">
                   {results.checks.mx.records.map((mx, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                      <span className="font-mono text-sm">{mx.exchange}</span>
-                      <Badge variant="outline">Priority: {mx.priority}</Badge>
+                    <div key={index} className="p-3 bg-gray-50 rounded-lg">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="font-mono text-sm font-semibold">{mx.exchange}</span>
+                        <Badge variant="outline">Priority: {mx.priority}</Badge>
+                      </div>
+                      {mx.ipAddresses && mx.ipAddresses.length > 0 && (
+                        <div className="text-sm text-gray-600">
+                          <strong>IP Addresses:</strong>
+                          <div className="flex flex-wrap gap-2 mt-1">
+                            {mx.ipAddresses.map((ip, ipIndex) => (
+                              <Badge key={ipIndex} variant="secondary" className="font-mono text-xs">
+                                {ip}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   ))}
                   {results.checks.mx.recommendations?.map((rec, index) => (
@@ -228,7 +242,7 @@ export const DNSResults = ({ results }: DNSResultsProps) => {
         <Collapsible>
           <Card className="shadow-md">
             <CollapsibleTrigger className="w-full">
-              <CardHeader className="hover:bg-gray-50 transition-colors">
+              <CardHeader className="hover: bg-gray-50 transition-colors">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <Link className="h-5 w-5 text-blue-600" />

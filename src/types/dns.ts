@@ -26,6 +26,7 @@ export interface SOARecord {
 export interface MXRecord {
   exchange: string;
   priority: number;
+  ipAddresses?: string[];
 }
 
 export interface DNSCheck {
